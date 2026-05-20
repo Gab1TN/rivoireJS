@@ -10,13 +10,12 @@
     />
 
     <StatusMessage type="info" :message="restaurantsStore.loadingRestaurants ? 'Chargement des restaurants...' : ''" />
-    <StatusMessage type="error" :message="restaurantsStore.restaurantsError" />
     <StatusMessage
       type="info"
       :message="!restaurantsStore.loadingRestaurants && !restaurantsStore.restaurantsError && filteredRestaurants.length === 0 ? 'Aucun restaurant trouvé.' : ''"
     />
 
-    <div class="stack-sm">
+    <div class="stack-sm restaurants-list">
       <RestaurantCard
         v-for="item in filteredRestaurants"
         :key="item.id"

@@ -3,7 +3,6 @@
     <h2 class="section-title">Réservation par token</h2>
 
     <StatusMessage type="info" :message="reservationsStore.loadingFetch ? 'Recherche de la réservation...' : ''" />
-    <StatusMessage type="error" :message="reservationsStore.error" />
 
     <ReservationSummary
       v-if="reservationsStore.reservation && !reservationsStore.loadingFetch"

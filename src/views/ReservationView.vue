@@ -12,13 +12,12 @@
     </div>
 
     <StatusMessage type="info" :message="reservationsStore.loadingCreate ? 'Envoi de la réservation...' : ''" />
-    <StatusMessage type="error" :message="reservationsStore.error || localError" />
     <StatusMessage type="success" :message="reservationsStore.successMessage" />
   </section>
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
+import { reactive } from 'vue';
 import { useRoute } from 'vue-router';
 import ReservationForm from '../components/ReservationForm.vue';
 import ReservationSummary from '../components/ReservationSummary.vue';
@@ -29,7 +28,6 @@ import { useRestaurantsStore } from '../stores/restaurants';
 const route = useRoute();
 const reservationsStore = useReservationsStore();
 const restaurantsStore = useRestaurantsStore();
-const localError = ref('');
 
 const reservation = reactive({
   restaurantId: String(route.query.restaurantId || ''),
@@ -50,11 +48,10 @@ function validate(payload) {
 
 async function submitForm(payload) {
   reservationsStore.clearFeedback();
-  localError.value = '';
 
   const validationError = validate(payload);
   if (validationError) {
-    localError.value = validationError;
+    reservationsStore.error = validationError;
     return;
   }
 

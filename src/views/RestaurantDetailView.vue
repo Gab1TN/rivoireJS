@@ -2,7 +2,6 @@
   <section>
     <h2 class="section-title">Détail restaurant</h2>
     <StatusMessage type="info" :message="restaurantsStore.loadingRestaurantDetail ? 'Chargement des informations...' : ''" />
-    <StatusMessage type="error" :message="restaurantsStore.restaurantDetailError" />
 
     <div v-if="restaurant && !restaurantsStore.loadingRestaurantDetail" class="summary-card">
       <p><strong>{{ restaurant.name }}</strong></p>
@@ -26,7 +25,6 @@
 
     <div class="summary-card mt-sm">
       <StatusMessage type="info" :message="restaurantsStore.loadingSlots ? 'Chargement des créneaux...' : ''" />
-      <StatusMessage type="error" :message="restaurantsStore.slotsError" />
 
       <SlotGrid :slots="restaurantsStore.slots" @select-slot="selectSlot" />
 
