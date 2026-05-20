@@ -1,168 +1,172 @@
-﻿:root {
-  --bg-page: #efefef;
-  --bg-card: #ffffff;
-  --bg-soft: #f4f4f4;
-  --text-main: #1f1f1f;
-  --text-soft: #555555;
-  --border: #cfcfcf;
-  --disabled: #e2e2e2;
-  --danger: #dcdcdc;
-  --radius: 4px;
-  --space-1: 6px;
-  --space-2: 10px;
-  --space-3: 14px;
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply m-0 bg-slate-100 text-slate-800 text-sm font-sans antialiased;
+  }
 }
 
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  color: var(--text-main);
-  background: var(--bg-page);
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
-}
-
-.app-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 56px;
-  padding: 0 var(--space-3);
-  border-bottom: 1px solid var(--border);
-  background: var(--bg-card);
-}
-
-.app-header__title { margin: 0; font-size: 1rem; font-weight: 500; }
-.app-header__menu { border: 0; background: transparent; width: 28px; padding: 0; }
-.app-header__menu span { display: block; height: 2px; background: #666; margin: 4px 0; }
-
-.field { display: block; margin-bottom: var(--space-2); }
-.field__label { display: block; margin-bottom: var(--space-1); color: var(--text-soft); }
-
-.base-input,
-.base-textarea,
-.search-input {
-  width: 100%;
-  border: 1px solid var(--border);
-  background: var(--bg-soft);
-  padding: 8px;
-  border-radius: var(--radius);
-}
-
-.base-button {
-  border: 1px solid var(--border);
-  background: var(--bg-soft);
-  color: var(--text-main);
-  padding: 8px 10px;
-  border-radius: var(--radius);
-}
-
-.base-button.is-block { width: 100%; }
-.base-button:disabled { background: var(--disabled); color: #888; cursor: not-allowed; }
-.base-button--warning { background: #ececec; }
-.base-button--muted { background: var(--disabled); color: #808080; }
-.base-button--danger { background: var(--danger); }
-
-.restaurant-card {
-  border: 1px solid var(--border);
-  background: var(--bg-card);
-  padding: var(--space-2);
-  display: grid;
-  grid-template-columns: 64px 1fr;
-  gap: var(--space-2);
-}
-
-.restaurant-card__image { width: 64px; height: 64px; object-fit: cover; border: 1px solid var(--border); }
-.restaurant-card__title { margin: 0 0 4px; font-size: 0.95rem; }
-.restaurant-card__description { margin: 0 0 var(--space-2); color: var(--text-soft); font-size: 0.85rem; }
-
-.slot-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space-2);
-}
-
-.summary-card,
-.reservation-form {
-  border: 1px solid var(--border);
-  background: var(--bg-card);
-  padding: var(--space-3);
-}
-
-.section-title { margin: 0 0 var(--space-2); font-size: 1rem; font-weight: 500; }
-
-.status-message {
-  border: 1px solid var(--border);
-  background: var(--bg-soft);
-  padding: var(--space-2);
-  margin: 0 0 var(--space-2);
-}
-.status-message--error { background: #ededed; }
-.status-message--success { background: #f0f0f0; }
-
-.global-loading {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  border-bottom: 1px solid var(--border);
-  background: #f7f7f7;
-  padding: 6px var(--space-3);
-  font-size: 0.82rem;
-  color: var(--text-soft);
-}
-
-.confirm-modal__overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.2);
-  display: grid;
-  place-items: center;
-  padding: var(--space-3);
-}
-
-.confirm-modal {
-  width: min(520px, 100%);
-  border: 1px solid var(--border);
-  background: var(--bg-card);
-  padding: var(--space-3);
-}
-
-.confirm-modal__actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-2);
-  margin-top: var(--space-3);
-}
-
-.screen-frame {
-  width: 100%;
-  max-width: 460px;
-  min-height: 100vh;
-  margin: 0 auto;
-  background: var(--bg-card);
-  border-left: 1px solid var(--border);
-  border-right: 1px solid var(--border);
-}
-
-.screen-content { padding: var(--space-3); }
-.stack-sm { display: grid; gap: var(--space-2); }
-.mt-sm { margin-top: var(--space-2); }
-
-.date-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-1);
-}
-
-@media (min-width: 768px) {
+@layer components {
   .screen-frame {
-    min-height: calc(100vh - 20px);
-    margin: 10px auto;
-    border: 1px solid var(--border);
+    @apply w-full min-h-screen mx-auto bg-white border-x border-slate-200 md:max-w-[1120px] md:min-h-[calc(100vh-24px)] md:my-3 md:border md:rounded-xl md:shadow-sm overflow-hidden;
+  }
+
+  .screen-content {
+    @apply p-4 md:p-6;
+  }
+
+  .app-header {
+    @apply min-h-16 px-4 md:px-6 border-b border-slate-200 bg-white flex items-center justify-between;
+  }
+
+  .app-header__title {
+    @apply m-0 text-lg font-semibold tracking-tight;
+  }
+
+  .app-header__home {
+    @apply no-underline text-slate-800 hover:text-blue-700 transition-colors;
+  }
+
+  .app-header__menu {
+    @apply border border-slate-300 bg-slate-50 rounded-md w-9 h-9 p-0 flex items-center justify-center;
+  }
+
+  .app-header__menu span {
+    @apply block h-0.5 w-4 bg-slate-600 my-0.5;
+  }
+
+  .field {
+    @apply block mb-3;
+  }
+
+  .field__label {
+    @apply block mb-1.5 text-slate-600 text-sm font-medium;
+  }
+
+  .search-bar .base-input {
+    @apply h-11 bg-white;
+  }
+
+  .base-input,
+  .base-textarea,
+  .search-input {
+    @apply w-full border border-slate-300 bg-slate-50 px-3 py-2.5 rounded-lg text-sm transition;
+  }
+
+  .base-input:focus,
+  .base-textarea:focus,
+  .search-input:focus {
+    @apply outline-none border-blue-500 ring-2 ring-blue-100 bg-white;
+  }
+
+  .base-button {
+    @apply border border-blue-600 bg-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-blue-700 hover:border-blue-700;
+  }
+
+  .base-button.is-block {
+    @apply w-full;
+  }
+
+  .base-button:disabled {
+    @apply bg-slate-200 border-slate-200 text-slate-500 cursor-not-allowed hover:bg-slate-200;
+  }
+
+  .base-button--warning {
+    @apply bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100 hover:border-blue-300;
+  }
+
+  .base-button--muted {
+    @apply bg-slate-200 border-slate-200 text-slate-500 hover:bg-slate-200;
+  }
+
+  .base-button--danger {
+    @apply bg-red-600 border-red-600 text-white hover:bg-red-700 hover:border-red-700;
+  }
+
+  .section-title {
+    @apply m-0 mb-3 text-lg font-semibold tracking-tight text-slate-900;
+  }
+
+  .restaurant-card {
+    @apply border border-slate-200 bg-white p-3.5 rounded-xl grid grid-cols-[72px_1fr] gap-3.5 md:grid-cols-[96px_1fr] md:items-start shadow-sm;
+  }
+
+  .restaurant-card__image {
+    @apply w-[72px] h-[72px] md:w-[96px] md:h-[96px] object-cover border border-slate-200 rounded-lg;
+  }
+
+  .restaurant-card__title {
+    @apply m-0 mb-1 text-base font-semibold text-slate-900;
+  }
+
+  .restaurant-card__description {
+    @apply m-0 mb-3 text-slate-600 text-sm leading-5;
+  }
+
+  .summary-card,
+  .reservation-form {
+    @apply border border-slate-200 bg-white p-4 md:p-5 rounded-xl shadow-sm;
+  }
+
+  .status-message {
+    @apply border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm mb-2 rounded-lg;
+  }
+
+  .status-message--error {
+    @apply bg-red-50 border-red-200 text-red-700;
+  }
+
+  .status-message--success {
+    @apply bg-blue-50 border-blue-200 text-blue-700;
+  }
+
+  .global-loading {
+    @apply sticky top-0 z-20 border-b border-slate-200 bg-blue-50 px-4 py-2 text-xs text-blue-700;
+  }
+
+  .error-toast {
+    @apply fixed z-50 top-20 right-3 left-3 md:left-auto md:w-[440px] border border-red-200 bg-red-50 shadow-lg px-3 py-2.5 rounded-xl flex items-start gap-2;
+  }
+
+  .error-toast__text {
+    @apply m-0 text-sm text-red-700 flex-1;
+  }
+
+  .error-toast__close {
+    @apply border border-red-200 bg-white text-sm leading-none px-2 py-1 rounded-md text-red-700;
+  }
+
+  .confirm-modal__overlay {
+    @apply fixed inset-0 bg-slate-900/35 grid place-items-center p-4;
+  }
+
+  .confirm-modal {
+    @apply w-full max-w-xl border border-slate-200 bg-white p-5 rounded-xl shadow-xl;
+  }
+
+  .confirm-modal__actions {
+    @apply grid grid-cols-2 gap-2.5 mt-3;
+  }
+
+  .stack-sm {
+    @apply grid gap-2.5;
+  }
+
+  .restaurants-list {
+    @apply xl:grid-cols-2;
+  }
+
+  .mt-sm {
+    @apply mt-2.5;
+  }
+
+  .slot-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5;
   }
 
   .date-grid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2;
   }
 }
