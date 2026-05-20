@@ -1,0 +1,76 @@
+﻿<template>
+  <section>
+    <ReservationSummary
+      :restaurant-name="reservation.restaurantName"
+      :date="reservation.date"
+      :slot="reservation.slot"
+      :guests="reservation.guests"
+    />
+
+    <div class="mt-sm">
+      <ReservationForm :disabled="reservationsStore.loadingCreate" @submit="submitForm" />
+    </div>
+
+    <StatusMessage type="info" :message="reservationsStore.loadingCreate ? 'Envoi de la réservation...' : ''" />
+    <StatusMessage type="error" :message="reservationsStore.error || localError" />
+    <StatusMessage type="success" :message="reservationsStore.successMessage" />
+  </section>
+</template>
+
+<script setup>
+import { reactive, ref } from 'vue';
+import { useRoute } from 'vue-router';
+import ReservationForm from '../components/ReservationForm.vue';
+import ReservationSummary from '../components/ReservationSummary.vue';
+import StatusMessage from '../components/StatusMessage.vue';
+import { useReservationsStore } from '../stores/reservations';
+import { useRestaurantsStore } from '../stores/restaurants';
+
+const route = useRoute();
+const reservationsStore = useReservationsStore();
+const restaurantsStore = useRestaurantsStore();
+const localError = ref('');
+
+const reservation = reactive({
+  restaurantId: String(route.query.restaurantId || ''),
+  restaurantName: String(route.query.restaurantName || 'Restaurant non défini'),
+  date: String(route.query.date || 'Date non définie'),
+  timeSlotId: String(route.query.timeSlotId || ''),
+  slot: String(route.query.slotLabel || 'Créneau non défini'),
+  guests: ''
+});
+
+function validate(payload) {
+  if (!reservation.restaurantId || !reservation.timeSlotId || !reservation.date) return 'Informations de réservation incomplètes.';
+  if (!payload.lastName || !payload.firstName || !payload.email || !payload.phone || !payload.guests) return 'Merci de remplir tous les champs.';
+  if (!payload.email.includes('@')) return 'Email invalide.';
+  if (Number(payload.guests) <= 0) return 'Le nombre de couverts doit être supérieur à 0.';
+  return '';
+}
+
+async function submitForm(payload) {
+  reservationsStore.clearFeedback();
+  localError.value = '';
+
+  const validationError = validate(payload);
+  if (validationError) {
+    localError.value = validationError;
+    return;
+  }
+
+  const apiPayload = {
+    restaurantId: reservation.restaurantId,
+    timeSlotId: reservation.timeSlotId,
+    customerName: `${payload.firstName} ${payload.lastName}`.trim(),
+    customerEmail: payload.email,
+    customerPhone: payload.phone,
+    covers: Number(payload.guests)
+  };
+
+  const data = await reservationsStore.createReservation(apiPayload);
+  if (!data) return;
+
+  reservation.guests = payload.guests;
+  await restaurantsStore.fetchSlots(reservation.restaurantId, reservation.date);
+}
+</script>
