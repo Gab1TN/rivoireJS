@@ -7,6 +7,8 @@
         :key="slot.id"
         :slot="slot.label"
         :variant="slot.variant"
+        :remaining-seats="slot.remainingSeats"
+        :is-selected="selectedSlotId === slot.id"
         @select="$emit('select-slot', slot)"
       />
     </div>
@@ -20,6 +22,10 @@ defineProps({
   slots: {
     type: Array,
     default: () => []
+  },
+  selectedSlotId: {
+    type: String,
+    default: ''
   }
 });
 

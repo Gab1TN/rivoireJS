@@ -2,6 +2,10 @@
   <section>
     <ReservationSummary
       :restaurant-name="reservation.restaurantName"
+      :restaurant-image="reservation.restaurantImage"
+      :restaurant-description="reservation.restaurantDescription"
+      :restaurant-cuisine-type="reservation.restaurantCuisineType"
+      :restaurant-address="reservation.restaurantAddress"
       :date="reservation.date"
       :slot="reservation.slot"
       :guests="reservation.guests"
@@ -32,6 +36,10 @@ const restaurantsStore = useRestaurantsStore();
 const reservation = reactive({
   restaurantId: String(route.query.restaurantId || ''),
   restaurantName: String(route.query.restaurantName || 'Restaurant non défini'),
+  restaurantImage: String(route.query.restaurantImage || ''),
+  restaurantDescription: String(route.query.restaurantDescription || ''),
+  restaurantCuisineType: String(route.query.restaurantCuisineType || ''),
+  restaurantAddress: String(route.query.restaurantAddress || ''),
   date: String(route.query.date || 'Date non définie'),
   timeSlotId: String(route.query.timeSlotId || ''),
   slot: String(route.query.slotLabel || 'Créneau non défini'),

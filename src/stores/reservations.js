@@ -12,6 +12,11 @@ function getApiErrorMessage(error, fallbackMessage) {
 function translateApiMessage(message) {
   const text = String(message || '').trim();
   const lower = text.toLowerCase();
+  const seatsLeftMatch = text.match(/Not enough seats left\s*\((\d+)\s*remaining\)/i);
+
+  if (seatsLeftMatch) {
+    return `Il n'y a pas assez de places disponibles (${seatsLeftMatch[1]} restantes).`;
+  }
 
   if (lower.includes('reservation is already cancelled') || lower.includes('reservation is already canceled')) {
     return 'La réservation est déjà annulée.';

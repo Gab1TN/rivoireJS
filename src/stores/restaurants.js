@@ -23,6 +23,7 @@ function translateApiMessage(message) {
 }
 
 function normalizeSlot(slot) {
+  const remainingSeats = Math.max((slot.totalCapacity ?? 0) - (slot.bookedCovers ?? 0), 0);
   return {
     id: slot.id,
     label: slot.startTime,
@@ -31,7 +32,10 @@ function normalizeSlot(slot) {
     startTime: slot.startTime,
     endTime: slot.endTime,
     status: slot.status,
-    restaurantId: slot.restaurantId
+    restaurantId: slot.restaurantId,
+    totalCapacity: slot.totalCapacity,
+    bookedCovers: slot.bookedCovers,
+    remainingSeats
   };
 }
 

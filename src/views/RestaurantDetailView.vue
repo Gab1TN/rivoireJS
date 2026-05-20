@@ -4,9 +4,19 @@
     <StatusMessage type="info" :message="restaurantsStore.loadingRestaurantDetail ? 'Chargement des informations...' : ''" />
 
     <div v-if="restaurant && !restaurantsStore.loadingRestaurantDetail" class="summary-card">
-      <p><strong>{{ restaurant.name }}</strong></p>
-      <p>{{ restaurant.description }}</p>
-      <p><small>{{ restaurant.address }}</small></p>
+      <div class="grid gap-3 md:grid-cols-[140px_1fr] md:items-start">
+        <img
+          :src="restaurant.imageUrl"
+          :alt="restaurant.name"
+          class="h-28 w-full rounded-lg border border-slate-200 object-cover md:h-[120px]"
+        />
+        <div>
+          <p class="mb-1 text-lg font-semibold text-slate-900">{{ restaurant.name }}</p>
+          <p class="mb-2 text-sm font-medium text-blue-700">{{ restaurant.cuisineType }}</p>
+          <p class="mb-2 text-sm text-slate-700">{{ restaurant.description }}</p>
+          <p class="text-xs text-slate-500">{{ restaurant.address }}</p>
+        </div>
+      </div>
     </div>
 
     <div class="summary-card mt-sm">
@@ -26,7 +36,7 @@
     <div class="summary-card mt-sm">
       <StatusMessage type="info" :message="restaurantsStore.loadingSlots ? 'Chargement des créneaux...' : ''" />
 
-      <SlotGrid :slots="restaurantsStore.slots" @select-slot="selectSlot" />
+      <SlotGrid :slots="restaurantsStore.slots" :selected-slot-id="selectedSlotId" @select-slot="selectSlot" />
 
       <StatusMessage
         type="info"
@@ -56,6 +66,7 @@ const selectedSlot = ref(null);
 
 const restaurantId = computed(() => String(route.params.id || ''));
 const restaurant = computed(() => restaurantsStore.selectedRestaurant);
+const selectedSlotId = computed(() => (selectedSlot.value ? selectedSlot.value.id : ''));
 
 const dates = computed(() => {
   const base = new Date();
@@ -90,6 +101,10 @@ function continueToReservation() {
     query: {
       restaurantId: restaurant.value.id,
       restaurantName: restaurant.value.name,
+      restaurantImage: restaurant.value.imageUrl,
+      restaurantDescription: restaurant.value.description,
+      restaurantCuisineType: restaurant.value.cuisineType,
+      restaurantAddress: restaurant.value.address,
       date: selectedDate.value,
       timeSlotId: selectedSlot.value.id,
       slotLabel: selectedSlot.value.label
