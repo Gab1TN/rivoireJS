@@ -2,12 +2,14 @@
 import HomeView from '../views/HomeView.vue';
 import RestaurantDetailView from '../views/RestaurantDetailView.vue';
 import ReservationView from '../views/ReservationView.vue';
+import ReservationTokenEntryView from '../views/ReservationTokenEntryView.vue';
 import ReservationTokenView from '../views/ReservationTokenView.vue';
 
 const routes = [
   { path: '/', name: 'home', component: HomeView },
   { path: '/restaurant/:id', name: 'restaurant-detail', component: RestaurantDetailView },
   { path: '/reservation', name: 'reservation', component: ReservationView },
+  { path: '/reservation/token/', name: 'reservation-token-entry', component: ReservationTokenEntryView },
   { path: '/reservation/token/:token', name: 'reservation-token', component: ReservationTokenView }
 ];
 

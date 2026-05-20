@@ -5,7 +5,7 @@
     <SearchBar
       label="Recherche"
       :model-value="search"
-      placeholder="barre recherche"
+      placeholder="Rechercher un restaurant..."
       @update:model-value="search = $event"
     />
 

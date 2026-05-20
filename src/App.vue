@@ -1,7 +1,7 @@
 ﻿<template>
   <MainLayout>
     <div v-if="showGlobalLoading" class="global-loading">Chargement...</div>
-    <ErrorToast :message="globalError.message" @close="clearGlobalError" />
+    <ErrorToast :type="globalToast.type" :message="globalToast.message" @close="clearGlobalToast" />
     <RouterView />
   </MainLayout>
 </template>
@@ -19,18 +19,22 @@ const reservationsStore = useReservationsStore();
 
 const showGlobalLoading = computed(() => restaurantsStore.isLoading || reservationsStore.isLoading);
 
-const globalError = computed(() => {
-  if (reservationsStore.error) return { source: 'reservation', message: reservationsStore.error };
-  if (restaurantsStore.restaurantsError) return { source: 'restaurants', message: restaurantsStore.restaurantsError };
-  if (restaurantsStore.restaurantDetailError) return { source: 'restaurant-detail', message: restaurantsStore.restaurantDetailError };
-  if (restaurantsStore.slotsError) return { source: 'slots', message: restaurantsStore.slotsError };
-  return { source: '', message: '' };
+const globalToast = computed(() => {
+  if (reservationsStore.error) return { source: 'reservation-error', type: 'error', message: reservationsStore.error };
+  if (restaurantsStore.restaurantsError) return { source: 'restaurants-error', type: 'error', message: restaurantsStore.restaurantsError };
+  if (restaurantsStore.restaurantDetailError) {
+    return { source: 'restaurant-detail-error', type: 'error', message: restaurantsStore.restaurantDetailError };
+  }
+  if (restaurantsStore.slotsError) return { source: 'slots-error', type: 'error', message: restaurantsStore.slotsError };
+  if (reservationsStore.successMessage) return { source: 'reservation-success', type: 'success', message: reservationsStore.successMessage };
+  return { source: '', type: 'error', message: '' };
 });
 
-function clearGlobalError() {
-  if (globalError.value.source === 'reservation') reservationsStore.error = '';
-  if (globalError.value.source === 'restaurants') restaurantsStore.restaurantsError = '';
-  if (globalError.value.source === 'restaurant-detail') restaurantsStore.restaurantDetailError = '';
-  if (globalError.value.source === 'slots') restaurantsStore.slotsError = '';
+function clearGlobalToast() {
+  if (globalToast.value.source === 'reservation-error') reservationsStore.error = '';
+  if (globalToast.value.source === 'restaurants-error') restaurantsStore.restaurantsError = '';
+  if (globalToast.value.source === 'restaurant-detail-error') restaurantsStore.restaurantDetailError = '';
+  if (globalToast.value.source === 'slots-error') restaurantsStore.slotsError = '';
+  if (globalToast.value.source === 'reservation-success') reservationsStore.successMessage = '';
 }
 </script>

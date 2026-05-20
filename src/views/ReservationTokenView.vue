@@ -24,7 +24,6 @@
     </div>
 
     <StatusMessage type="info" :message="reservationsStore.loadingCancel ? 'Annulation en cours...' : ''" />
-    <StatusMessage type="success" :message="reservationsStore.successMessage" />
 
     <ConfirmModal
       :open="isConfirmOpen"

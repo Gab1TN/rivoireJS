@@ -29,12 +29,16 @@
     @apply no-underline text-slate-800 hover:text-blue-700 transition-colors;
   }
 
-  .app-header__menu {
-    @apply border border-slate-300 bg-slate-50 rounded-md w-9 h-9 p-0 flex items-center justify-center;
+  .app-header__token-link {
+    @apply border border-slate-300 bg-slate-50 rounded-md w-9 h-9 text-slate-600 flex items-center justify-center transition-colors;
   }
 
-  .app-header__menu span {
-    @apply block h-0.5 w-4 bg-slate-600 my-0.5;
+  .app-header__token-link:hover {
+    @apply border-blue-300 text-blue-700 bg-blue-50;
+  }
+
+  .app-header__token-link svg {
+    @apply w-5 h-5;
   }
 
   .field {
@@ -47,6 +51,18 @@
 
   .search-bar .base-input {
     @apply h-11 bg-white;
+  }
+
+  .search-bar__input-wrap {
+    @apply relative block;
+  }
+
+  .search-bar__icon {
+    @apply absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none;
+  }
+
+  .search-bar__input {
+    @apply pl-9;
   }
 
   .base-input,
@@ -131,12 +147,24 @@
     @apply fixed z-50 top-20 right-3 left-3 md:left-auto md:w-[440px] border border-red-200 bg-red-50 shadow-lg px-3 py-2.5 rounded-xl flex items-start gap-2;
   }
 
+  .error-toast--success {
+    @apply border-blue-200 bg-blue-50;
+  }
+
   .error-toast__text {
     @apply m-0 text-sm text-red-700 flex-1;
   }
 
+  .error-toast--success .error-toast__text {
+    @apply text-blue-700;
+  }
+
   .error-toast__close {
     @apply border border-red-200 bg-white text-sm leading-none px-2 py-1 rounded-md text-red-700;
+  }
+
+  .error-toast--success .error-toast__close {
+    @apply border-blue-200 text-blue-700;
   }
 
   .confirm-modal__overlay {
@@ -169,6 +197,34 @@
 
   .date-grid {
     @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2;
+  }
+
+  .token-card {
+    @apply border-blue-200 bg-blue-50;
+  }
+
+  .token-card__label {
+    @apply m-0 mb-1 text-xs font-semibold uppercase tracking-wide text-blue-700;
+  }
+
+  .token-card__row {
+    @apply flex items-center gap-2;
+  }
+
+  .token-card__value {
+    @apply flex-1 text-xs md:text-sm bg-white border border-blue-200 rounded-md px-2 py-1 break-all;
+  }
+
+  .token-card__copy {
+    @apply inline-flex items-center gap-1 border border-blue-200 bg-white text-blue-700 rounded-md px-2 py-1 text-xs font-medium;
+  }
+
+  .token-card__copy svg {
+    @apply w-4 h-4;
+  }
+
+  .token-card__hint {
+    @apply m-0 mt-2 text-xs text-slate-600 break-all;
   }
 }
 

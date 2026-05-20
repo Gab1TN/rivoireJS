@@ -11,6 +11,21 @@
       :guests="reservation.guests"
     />
 
+    <div v-if="createdToken" class="summary-card mt-sm token-card">
+      <p class="token-card__label">Token de réservation</p>
+      <div class="token-card__row">
+        <code class="token-card__value">{{ createdToken }}</code>
+        <button type="button" class="token-card__copy" :aria-label="copyLabel" @click="copyToken">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="9" y="9" width="11" height="11" rx="2" stroke="currentColor" stroke-width="1.8" />
+            <path d="M15 9V6C15 4.89543 14.1046 4 13 4H6C4.89543 4 4 4.89543 4 6V13C4 14.1046 4.89543 15 6 15H9" stroke="currentColor" stroke-width="1.8" />
+          </svg>
+          <span>{{ copyLabel }}</span>
+        </button>
+      </div>
+      <p class="token-card__hint">Lien direct : <strong>{{ tokenUrl }}</strong></p>
+    </div>
+
     <div class="mt-sm stack-sm">
       <BaseButton variant="warning" :disabled="reservationsStore.loadingCreate" @click="fillDemoForm">
         Remplir
@@ -19,12 +34,11 @@
     </div>
 
     <StatusMessage type="info" :message="reservationsStore.loadingCreate ? 'Envoi de la réservation...' : ''" />
-    <StatusMessage type="success" :message="reservationsStore.successMessage" />
   </section>
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import BaseButton from '../components/BaseButton.vue';
 import ReservationForm from '../components/ReservationForm.vue';
@@ -37,6 +51,7 @@ const route = useRoute();
 const reservationsStore = useReservationsStore();
 const restaurantsStore = useRestaurantsStore();
 const reservationFormRef = ref(null);
+const copyLabel = ref('Copier');
 
 const reservation = reactive({
   restaurantId: String(route.query.restaurantId || ''),
@@ -49,6 +64,19 @@ const reservation = reactive({
   timeSlotId: String(route.query.timeSlotId || ''),
   slot: String(route.query.slotLabel || 'Créneau non défini'),
   guests: ''
+});
+
+const createdToken = computed(() => {
+  const payload = reservationsStore.reservation;
+  if (!payload) return '';
+  if (typeof payload.token === 'string') return payload.token;
+  if (typeof payload?.reservation?.token === 'string') return payload.reservation.token;
+  return '';
+});
+
+const tokenUrl = computed(() => {
+  if (!createdToken.value) return '';
+  return `${window.location.origin}/reservation/token/${createdToken.value}`;
 });
 
 function validate(payload) {
@@ -86,5 +114,18 @@ async function submitForm(payload) {
 
 function fillDemoForm() {
   reservationFormRef.value?.fillRandomForm();
+}
+
+async function copyToken() {
+  if (!createdToken.value) return;
+  try {
+    await navigator.clipboard.writeText(createdToken.value);
+    copyLabel.value = 'Copié';
+    setTimeout(() => {
+      copyLabel.value = 'Copier';
+    }, 1400);
+  } catch {
+    reservationsStore.error = 'Impossible de copier le token.';
+  }
 }
 </script>

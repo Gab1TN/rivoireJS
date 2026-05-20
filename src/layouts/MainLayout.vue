@@ -1,6 +1,6 @@
-﻿<template>
+<template>
   <div class="screen-frame">
-    <AppHeader title="Reserveo" @menu-click="$emit('menu-click')" />
+    <AppHeader title="Reserveo" />
     <main class="screen-content">
       <slot />
     </main>
@@ -9,5 +9,4 @@
 
 <script setup>
 import AppHeader from '../components/AppHeader.vue';
-defineEmits(['menu-click']);
 </script>
