@@ -3,16 +3,26 @@ import api from '../services/api';
 
 function getApiErrorMessage(error, fallbackMessage) {
   const responseMessage = error?.response?.data?.message;
-  if (Array.isArray(responseMessage)) {
-    return responseMessage.join(', ');
+  if (Array.isArray(responseMessage)) return translateApiMessage(responseMessage.join(', '));
+  if (typeof responseMessage === 'string' && responseMessage.trim()) return translateApiMessage(responseMessage);
+  if (typeof error?.message === 'string' && error.message.trim()) return translateApiMessage(error.message);
+  return translateApiMessage(fallbackMessage);
+}
+
+function translateApiMessage(message) {
+  const text = String(message || '').trim();
+  const lower = text.toLowerCase();
+
+  if (lower.includes('reservation is already cancelled') || lower.includes('reservation is already canceled')) {
+    return 'La réservation est déjà annulée.';
   }
-  if (typeof responseMessage === 'string' && responseMessage.trim()) {
-    return responseMessage;
-  }
-  if (typeof error?.message === 'string' && error.message.trim()) {
-    return error.message;
-  }
-  return fallbackMessage;
+  if (lower.includes('reservation not found')) return 'Réservation introuvable.';
+  if (lower.includes('invalid token')) return 'Token invalide.';
+  if (lower.includes('token is required')) return 'Le token est requis.';
+  if (lower.includes('network error')) return "Erreur réseau. Vérifie que le backend est bien lancé.";
+  if (lower.includes('timeout')) return "Délai d'attente dépassé. Réessaie.";
+
+  return text;
 }
 
 export const useReservationsStore = defineStore('reservations', {

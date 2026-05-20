@@ -3,10 +3,23 @@ import api from '../services/api';
 
 function getApiErrorMessage(error, fallbackMessage) {
   const responseMessage = error?.response?.data?.message;
-  if (Array.isArray(responseMessage)) return responseMessage.join(', ');
-  if (typeof responseMessage === 'string' && responseMessage.trim()) return responseMessage;
-  if (typeof error?.message === 'string' && error.message.trim()) return error.message;
-  return fallbackMessage;
+  if (Array.isArray(responseMessage)) return translateApiMessage(responseMessage.join(', '));
+  if (typeof responseMessage === 'string' && responseMessage.trim()) return translateApiMessage(responseMessage);
+  if (typeof error?.message === 'string' && error.message.trim()) return translateApiMessage(error.message);
+  return translateApiMessage(fallbackMessage);
+}
+
+function translateApiMessage(message) {
+  const text = String(message || '').trim();
+  const lower = text.toLowerCase();
+
+  if (lower.includes('restaurant not found')) return 'Restaurant introuvable.';
+  if (lower.includes('query param date is required')) return 'Le paramètre date est requis (YYYY-MM-DD).';
+  if (lower.includes('not found')) return 'Ressource introuvable.';
+  if (lower.includes('network error')) return "Erreur réseau. Vérifie que le backend est bien lancé.";
+  if (lower.includes('timeout')) return "Délai d'attente dépassé. Réessaie.";
+
+  return text;
 }
 
 function normalizeSlot(slot) {
