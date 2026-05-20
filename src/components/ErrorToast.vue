@@ -2,12 +2,16 @@
   <div
     v-if="message"
     class="error-toast"
-    :class="`error-toast--${type}`"
+    :class="type === 'success' ? 'error-toast--success' : 'error-toast--error'"
     role="alert"
     :aria-live="type === 'error' ? 'assertive' : 'polite'"
   >
     <p class="error-toast__text">{{ message }}</p>
-    <button type="button" class="error-toast__close" @click="$emit('close')">×</button>
+    <button type="button" class="error-toast__close" aria-label="Fermer la notification" @click="$emit('close')">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+      </svg>
+    </button>
   </div>
 </template>
 
@@ -48,3 +52,4 @@ onBeforeUnmount(() => {
   if (timeoutId) clearTimeout(timeoutId);
 });
 </script>
+

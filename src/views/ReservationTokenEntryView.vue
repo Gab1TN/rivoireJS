@@ -1,15 +1,15 @@
 <template>
   <section>
-    <h2 class="section-title">Accès réservation par token</h2>
+    <h2 class="section-title">AccÃ¨s Ã  la rÃ©servation par token</h2>
 
     <form class="summary-card" @submit.prevent="openReservation">
       <BaseInput
         label="Token"
         :model-value="token"
-        placeholder="Collez votre token de réservation"
+        placeholder="Collez votre token de rÃ©servation"
         @update:model-value="token = String($event || '')"
       />
-      <BaseButton block :disabled="!normalizedToken">Ouvrir ma réservation</BaseButton>
+      <BaseButton type="submit" block :disabled="!normalizedToken">Ouvrir ma rÃ©servation</BaseButton>
     </form>
   </section>
 </template>
@@ -30,3 +30,4 @@ function openReservation() {
   router.push({ name: 'reservation-token', params: { token: normalizedToken.value } });
 }
 </script>
+

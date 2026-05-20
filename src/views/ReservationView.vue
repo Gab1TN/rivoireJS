@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <section>
     <ReservationSummary
       :restaurant-name="reservation.restaurantName"
@@ -23,7 +23,10 @@
           <span>{{ copyLabel }}</span>
         </button>
       </div>
-      <p class="token-card__hint">Lien direct : <strong>{{ tokenUrl }}</strong></p>
+      <p class="token-card__hint">
+        Lien direct :
+        <a :href="tokenUrl" target="_blank" rel="noopener noreferrer" class="token-card__link">{{ tokenUrl }}</a>
+      </p>
     </div>
 
     <div class="mt-sm stack-sm">
@@ -52,6 +55,7 @@ const reservationsStore = useReservationsStore();
 const restaurantsStore = useRestaurantsStore();
 const reservationFormRef = ref(null);
 const copyLabel = ref('Copier');
+const createdToken = ref('');
 
 const reservation = reactive({
   restaurantId: String(route.query.restaurantId || ''),
@@ -64,14 +68,6 @@ const reservation = reactive({
   timeSlotId: String(route.query.timeSlotId || ''),
   slot: String(route.query.slotLabel || 'Créneau non défini'),
   guests: ''
-});
-
-const createdToken = computed(() => {
-  const payload = reservationsStore.reservation;
-  if (!payload) return '';
-  if (typeof payload.token === 'string') return payload.token;
-  if (typeof payload?.reservation?.token === 'string') return payload.reservation.token;
-  return '';
 });
 
 const tokenUrl = computed(() => {
@@ -107,6 +103,7 @@ async function submitForm(payload) {
 
   const data = await reservationsStore.createReservation(apiPayload);
   if (!data) return;
+  createdToken.value = typeof data?.token === 'string' ? data.token : '';
 
   reservation.guests = payload.guests;
   await restaurantsStore.fetchSlots(reservation.restaurantId, reservation.date);
@@ -129,3 +126,4 @@ async function copyToken() {
   }
 }
 </script>
+
