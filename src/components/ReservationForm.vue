@@ -37,4 +37,25 @@ defineEmits(['submit']);
 function setField(field, value) {
   form[field] = value;
 }
+
+function fillRandomForm() {
+  const firstNames = ['Emma', 'Lucas', 'Lina', 'Nathan', 'Chloe', 'Hugo', 'Lea', 'Adam'];
+  const lastNames = ['Martin', 'Bernard', 'Dubois', 'Petit', 'Moreau', 'Simon', 'Laurent', 'Michel'];
+  const domains = ['example.com', 'mail.fr', 'demo.test'];
+  const random = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  const randomDigits = (length) => Array.from({ length }, () => Math.floor(Math.random() * 10)).join('');
+
+  const firstName = random(firstNames);
+  const lastName = random(lastNames);
+
+  form.firstName = firstName;
+  form.lastName = lastName;
+  form.email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}${Math.floor(Math.random() * 90 + 10)}@${random(domains)}`;
+  form.phone = `06${randomDigits(8)}`;
+  form.guests = String(Math.floor(Math.random() * 8) + 1);
+}
+
+defineExpose({
+  fillRandomForm
+});
 </script>

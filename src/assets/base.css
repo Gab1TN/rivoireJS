@@ -62,7 +62,8 @@
   }
 
   .base-button {
-    @apply border border-blue-600 bg-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-medium transition-colors hover:bg-blue-700 hover:border-blue-700;
+    @apply border border-blue-600 bg-blue-600 text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:bg-blue-700 hover:border-blue-700;
+    box-shadow: 0 6px 18px -12px rgba(37, 99, 235, 0.9);
   }
 
   .base-button.is-block {
@@ -167,6 +168,70 @@
   }
 
   .date-grid {
-    @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2;
+    @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2;
   }
+}
+
+.slot-button {
+  @apply w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-left flex items-center justify-between gap-2 transition-all duration-200;
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.06), 0 8px 18px -16px rgba(15, 23, 42, 0.35);
+}
+
+.slot-button:hover {
+  @apply border-blue-300;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 0 rgba(59, 130, 246, 0.18), 0 16px 22px -18px rgba(37, 99, 235, 0.5);
+}
+
+.slot-button--free {
+  @apply border-slate-300 bg-white;
+}
+
+.slot-button--nearly {
+  @apply border-amber-200 bg-amber-50;
+}
+
+.slot-button--selected {
+  @apply border-blue-600 bg-gradient-to-br from-blue-50 to-white ring-2 ring-blue-100;
+  box-shadow: 0 2px 0 rgba(37, 99, 235, 0.3), 0 16px 24px -18px rgba(37, 99, 235, 0.65);
+}
+
+.slot-button--full {
+  @apply border-slate-200 bg-slate-100 text-slate-500 cursor-not-allowed;
+  box-shadow: none;
+}
+
+.slot-button:focus-visible,
+.base-button:focus-visible {
+  @apply outline-none ring-2 ring-offset-2 ring-blue-300;
+}
+
+.slot-button__time {
+  @apply text-sm font-semibold text-slate-900;
+}
+
+.slot-button__meta {
+  @apply text-xs whitespace-nowrap;
+}
+
+.slot-button__meta--free {
+  @apply text-slate-600;
+}
+
+.slot-button__meta--nearly {
+  @apply text-amber-700;
+}
+
+.slot-button__meta--full {
+  @apply text-slate-500;
+}
+
+.reservation-continue-button:not(:disabled) {
+  @apply bg-gradient-to-r from-blue-600 to-blue-500 border-blue-600;
+}
+
+.reservation-continue-button:not(:disabled):hover {
+  @apply from-blue-700 to-blue-600 border-blue-700;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px -14px rgba(29, 78, 216, 0.85);
 }

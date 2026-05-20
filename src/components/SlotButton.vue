@@ -5,8 +5,8 @@
     :class="buttonClass"
     @click="$emit('select', slot)"
   >
-    <span class="text-sm font-semibold">{{ slot }}</span>
-    <span class="text-xs" :class="metaClass">{{ availabilityText }}</span>
+    <span class="slot-button__time">{{ slot }}</span>
+    <span class="slot-button__meta" :class="metaClass">{{ availabilityText }}</span>
   </button>
 </template>
 
@@ -40,25 +40,15 @@ const availabilityText = computed(() => {
 });
 
 const buttonClass = computed(() => {
-  const base = 'w-full rounded-lg border px-3 py-2 text-left transition';
-  if (props.variant === 'full') {
-    return `${base} border-slate-200 bg-slate-100 text-slate-500 cursor-not-allowed`;
-  }
-
-  if (props.variant === 'nearly_full') {
-    return props.isSelected
-      ? `${base} border-blue-600 bg-blue-50 ring-2 ring-blue-100 text-blue-900`
-      : `${base} border-blue-200 bg-blue-50 text-blue-800 hover:border-blue-300`;
-  }
-
-  return props.isSelected
-    ? `${base} border-blue-600 bg-blue-50 ring-2 ring-blue-100 text-blue-900`
-    : `${base} border-slate-300 bg-white text-slate-800 hover:border-blue-300 hover:bg-blue-50`;
+  const base = 'slot-button';
+  if (props.variant === 'full') return `${base} slot-button--full`;
+  if (props.variant === 'nearly_full') return `${base} ${props.isSelected ? 'slot-button--selected' : 'slot-button--nearly'}`;
+  return `${base} ${props.isSelected ? 'slot-button--selected' : 'slot-button--free'}`;
 });
 
 const metaClass = computed(() => {
-  if (props.variant === 'full') return 'text-slate-500';
-  if (props.variant === 'nearly_full') return 'text-blue-700';
-  return 'text-slate-500';
+  if (props.variant === 'full') return 'slot-button__meta--full';
+  if (props.variant === 'nearly_full') return 'slot-button__meta--nearly';
+  return 'slot-button__meta--free';
 });
 </script>

@@ -11,8 +11,11 @@
       :guests="reservation.guests"
     />
 
-    <div class="mt-sm">
-      <ReservationForm :disabled="reservationsStore.loadingCreate" @submit="submitForm" />
+    <div class="mt-sm stack-sm">
+      <BaseButton variant="warning" :disabled="reservationsStore.loadingCreate" @click="fillDemoForm">
+        Remplir
+      </BaseButton>
+      <ReservationForm ref="reservationFormRef" :disabled="reservationsStore.loadingCreate" @submit="submitForm" />
     </div>
 
     <StatusMessage type="info" :message="reservationsStore.loadingCreate ? 'Envoi de la réservation...' : ''" />
@@ -21,8 +24,9 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import BaseButton from '../components/BaseButton.vue';
 import ReservationForm from '../components/ReservationForm.vue';
 import ReservationSummary from '../components/ReservationSummary.vue';
 import StatusMessage from '../components/StatusMessage.vue';
@@ -32,6 +36,7 @@ import { useRestaurantsStore } from '../stores/restaurants';
 const route = useRoute();
 const reservationsStore = useReservationsStore();
 const restaurantsStore = useRestaurantsStore();
+const reservationFormRef = ref(null);
 
 const reservation = reactive({
   restaurantId: String(route.query.restaurantId || ''),
@@ -77,5 +82,9 @@ async function submitForm(payload) {
 
   reservation.guests = payload.guests;
   await restaurantsStore.fetchSlots(reservation.restaurantId, reservation.date);
+}
+
+function fillDemoForm() {
+  reservationFormRef.value?.fillRandomForm();
 }
 </script>
