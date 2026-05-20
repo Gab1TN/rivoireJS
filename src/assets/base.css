@@ -1,0 +1,168 @@
+﻿:root {
+  --bg-page: #efefef;
+  --bg-card: #ffffff;
+  --bg-soft: #f4f4f4;
+  --text-main: #1f1f1f;
+  --text-soft: #555555;
+  --border: #cfcfcf;
+  --disabled: #e2e2e2;
+  --danger: #dcdcdc;
+  --radius: 4px;
+  --space-1: 6px;
+  --space-2: 10px;
+  --space-3: 14px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--text-main);
+  background: var(--bg-page);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 56px;
+  padding: 0 var(--space-3);
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+.app-header__title { margin: 0; font-size: 1rem; font-weight: 500; }
+.app-header__menu { border: 0; background: transparent; width: 28px; padding: 0; }
+.app-header__menu span { display: block; height: 2px; background: #666; margin: 4px 0; }
+
+.field { display: block; margin-bottom: var(--space-2); }
+.field__label { display: block; margin-bottom: var(--space-1); color: var(--text-soft); }
+
+.base-input,
+.base-textarea,
+.search-input {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  padding: 8px;
+  border-radius: var(--radius);
+}
+
+.base-button {
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  color: var(--text-main);
+  padding: 8px 10px;
+  border-radius: var(--radius);
+}
+
+.base-button.is-block { width: 100%; }
+.base-button:disabled { background: var(--disabled); color: #888; cursor: not-allowed; }
+.base-button--warning { background: #ececec; }
+.base-button--muted { background: var(--disabled); color: #808080; }
+.base-button--danger { background: var(--danger); }
+
+.restaurant-card {
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  padding: var(--space-2);
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: var(--space-2);
+}
+
+.restaurant-card__image { width: 64px; height: 64px; object-fit: cover; border: 1px solid var(--border); }
+.restaurant-card__title { margin: 0 0 4px; font-size: 0.95rem; }
+.restaurant-card__description { margin: 0 0 var(--space-2); color: var(--text-soft); font-size: 0.85rem; }
+
+.slot-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+.summary-card,
+.reservation-form {
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  padding: var(--space-3);
+}
+
+.section-title { margin: 0 0 var(--space-2); font-size: 1rem; font-weight: 500; }
+
+.status-message {
+  border: 1px solid var(--border);
+  background: var(--bg-soft);
+  padding: var(--space-2);
+  margin: 0 0 var(--space-2);
+}
+.status-message--error { background: #ededed; }
+.status-message--success { background: #f0f0f0; }
+
+.global-loading {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid var(--border);
+  background: #f7f7f7;
+  padding: 6px var(--space-3);
+  font-size: 0.82rem;
+  color: var(--text-soft);
+}
+
+.confirm-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  display: grid;
+  place-items: center;
+  padding: var(--space-3);
+}
+
+.confirm-modal {
+  width: min(520px, 100%);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  padding: var(--space-3);
+}
+
+.confirm-modal__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.screen-frame {
+  width: 100%;
+  max-width: 460px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+.screen-content { padding: var(--space-3); }
+.stack-sm { display: grid; gap: var(--space-2); }
+.mt-sm { margin-top: var(--space-2); }
+
+.date-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-1);
+}
+
+@media (min-width: 768px) {
+  .screen-frame {
+    min-height: calc(100vh - 20px);
+    margin: 10px auto;
+    border: 1px solid var(--border);
+  }
+
+  .date-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
