@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <section>
     <h3 class="section-title">Créneaux disponibles</h3>
     <div class="slot-grid">
@@ -31,3 +31,4 @@ defineProps({
 
 defineEmits(['select-slot']);
 </script>
+

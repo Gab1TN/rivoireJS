@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <article class="restaurant-card">
     <img class="restaurant-card__image" :src="image" :alt="title" />
 
@@ -30,3 +30,4 @@ defineProps({
 
 defineEmits(['view-slots']);
 </script>
+

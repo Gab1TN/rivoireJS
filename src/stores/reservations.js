@@ -1,4 +1,4 @@
-﻿import { defineStore } from 'pinia';
+import { defineStore } from 'pinia';
 import api from '../services/api';
 
 function getApiErrorMessage(error, fallbackMessage) {
@@ -97,3 +97,4 @@ export const useReservationsStore = defineStore('reservations', {
     }
   }
 });
+

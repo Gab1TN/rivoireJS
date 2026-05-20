@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <section>
     <h2 class="section-title">Détail restaurant</h2>
     <StatusMessage type="info" :message="restaurantsStore.loadingRestaurantDetail ? 'Chargement des informations...' : ''" />
@@ -120,3 +120,4 @@ function formatShortDate(isoDate) {
   return `${weekday} ${day}/${month}`;
 }
 </script>
+

@@ -1,4 +1,4 @@
-﻿import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../views/HomeView.vue';
 import RestaurantDetailView from '../views/RestaurantDetailView.vue';
 import ReservationView from '../views/ReservationView.vue';
@@ -19,3 +19,4 @@ const router = createRouter({
 });
 
 export default router;
+

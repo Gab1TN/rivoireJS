@@ -1,4 +1,4 @@
-﻿import { defineStore } from 'pinia';
+import { defineStore } from 'pinia';
 import api from '../services/api';
 
 function getApiErrorMessage(error, fallbackMessage) {
@@ -106,3 +106,4 @@ export const useRestaurantsStore = defineStore('restaurants', {
     }
   }
 });
+

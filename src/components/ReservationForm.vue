@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <form class="reservation-form" @submit.prevent="$emit('submit', form)">
     <h2 class="section-title">Réservation</h2>
 
@@ -59,3 +59,4 @@ defineExpose({
   fillRandomForm
 });
 </script>
+

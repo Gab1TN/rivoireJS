@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <button
     :type="type"
     class="base-button"
@@ -32,3 +32,4 @@ defineProps({
 
 defineEmits(['click']);
 </script>
+

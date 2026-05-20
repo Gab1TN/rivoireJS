@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <section>
     <h2 class="section-title">Réservation par token</h2>
 
@@ -84,3 +84,4 @@ async function confirmCancel() {
   isConfirmOpen.value = false;
 }
 </script>
+

@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <section class="summary-card">
     <h3 class="section-title">Récapitulatif</h3>
 
@@ -61,3 +61,4 @@ defineProps({
   }
 });
 </script>
+

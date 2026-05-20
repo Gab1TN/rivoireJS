@@ -3,7 +3,7 @@
     <h1 class="app-header__title">
       <RouterLink to="/" class="app-header__home">{{ title }}</RouterLink>
     </h1>
-    <RouterLink to="/reservation/token/" class="app-header__token-link" aria-label="Accéder à la réservation par token">
+    <RouterLink to="/reservation/token/" class="app-header__token-link" aria-label="AccÃ©der Ã  la rÃ©servation par token">
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path
           d="M14 8C14 10.2091 12.2091 12 10 12C7.79086 12 6 10.2091 6 8C6 5.79086 7.79086 4 10 4C12.2091 4 14 5.79086 14 8Z"
@@ -32,3 +32,4 @@ defineProps({
   }
 });
 </script>
+

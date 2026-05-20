@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <section>
     <h2 class="section-title">Nos restaurants</h2>
 
@@ -54,3 +54,4 @@ function openRestaurant(id) {
   router.push({ name: 'restaurant-detail', params: { id } });
 }
 </script>
+

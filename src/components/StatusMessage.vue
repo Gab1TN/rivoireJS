@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <p v-if="message" class="status-message" :class="`status-message--${type}`">
     {{ message }}
   </p>
@@ -16,3 +16,4 @@ defineProps({
   }
 });
 </script>
+

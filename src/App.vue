@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <MainLayout>
     <div v-if="showGlobalLoading" class="global-loading">Chargement...</div>
     <ErrorToast :type="globalToast.type" :message="globalToast.message" @close="clearGlobalToast" />
@@ -38,3 +38,4 @@ function clearGlobalToast() {
   if (globalToast.value.source === 'reservation-success') reservationsStore.successMessage = '';
 }
 </script>
+

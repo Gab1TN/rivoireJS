@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div v-if="open" class="confirm-modal__overlay">
     <section class="confirm-modal">
       <h3 class="section-title">Confirmation</h3>
@@ -27,3 +27,4 @@ defineProps({
 
 defineEmits(['confirm', 'cancel']);
 </script>
+

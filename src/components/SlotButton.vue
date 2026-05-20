@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <button
     type="button"
     :disabled="variant === 'full'"
@@ -52,3 +52,4 @@ const metaClass = computed(() => {
   return 'slot-button__meta--free';
 });
 </script>
+
